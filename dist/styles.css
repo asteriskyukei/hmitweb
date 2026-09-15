@@ -22,3 +22,6 @@ footer{background:#080f22;color:#aeb8ce;padding:4rem max(2rem,calc((100vw - var(
 /* Logo containers remain fully transparent. */
 .brand{background:transparent;padding:0}
 .footer-brand img{background:transparent;padding:0}
+.metrics{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.metrics{grid-template-columns:1fr}}
