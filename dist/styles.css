@@ -8,3 +8,8 @@
 .hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.95}
 .hero-copy,.hero-panel{position:relative;z-index:2}
 .hero-panel{background:rgba(5,19,44,.18);backdrop-filter:blur(2px)}
+
+/* Keep the two intended hero-title lines stable at every viewport. */
+#hero-title{font-size:clamp(3rem,4.15vw,4.25rem);line-height:1.12;white-space:nowrap;word-break:keep-all}
+#hero-title em{display:inline-block;white-space:nowrap}
+@media(max-width:640px){#hero-title{font-size:clamp(2.05rem,9vw,2.8rem);letter-spacing:-.06em}}
