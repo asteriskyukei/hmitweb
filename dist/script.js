@@ -72,6 +72,115 @@ track?.addEventListener('scroll', () => {
   }, 120);
 }, { passive: true });
 
+const hero = document.querySelector('.hero');
+
+if (hero) {
+  const heroCanvas = document.createElement('canvas');
+  heroCanvas.id = 'heroDotted';
+  heroCanvas.className = 'hero-canvas';
+  heroCanvas.setAttribute('aria-hidden', 'true');
+  hero.prepend(heroCanvas);
+
+  const context = heroCanvas.getContext('2d');
+  const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const palette = ['#21b8e6', '#ffffff', '#6289d8'];
+  let width = 0;
+  let height = 0;
+  let frame;
+  let pointer = { x: 0, y: 0, active: false };
+  let particles = [];
+
+  function resetParticles() {
+    const count = Math.min(76, Math.max(34, Math.round(width / 22)));
+    particles = Array.from({ length: count }, (_, index) => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.32,
+      vy: (Math.random() - 0.5) * 0.32,
+      size: index % 11 === 0 ? 4 + Math.random() * 5 : 1.2 + Math.random() * 2.2,
+      shape: index % 17 === 0 ? 'square' : index % 13 === 0 ? 'ring' : 'dot',
+      color: palette[index % palette.length]
+    }));
+  }
+
+  function resizeCanvas() {
+    const bounds = hero.getBoundingClientRect();
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    width = bounds.width;
+    height = bounds.height;
+    heroCanvas.width = Math.round(width * ratio);
+    heroCanvas.height = Math.round(height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    resetParticles();
+  }
+
+  function drawParticle(particle) {
+    context.beginPath();
+    context.strokeStyle = particle.color;
+    context.fillStyle = particle.color;
+    context.lineWidth = 1;
+    if (particle.shape === 'square') {
+      context.strokeRect(particle.x - particle.size, particle.y - particle.size, particle.size * 2, particle.size * 2);
+    } else {
+      context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      particle.shape === 'ring' ? context.stroke() : context.fill();
+    }
+  }
+
+  function renderCanvas() {
+    context.clearRect(0, 0, width, height);
+    particles.forEach((particle, index) => {
+      if (!motionReduced) {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        if (particle.x < -10 || particle.x > width + 10) particle.vx *= -1;
+        if (particle.y < -10 || particle.y > height + 10) particle.vy *= -1;
+      }
+
+      if (pointer.active && !motionReduced) {
+        const dx = particle.x - pointer.x;
+        const dy = particle.y - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 130 && distance > 0) {
+          particle.x += (dx / distance) * 0.45;
+          particle.y += (dy / distance) * 0.45;
+        }
+      }
+
+      for (let next = index + 1; next < particles.length; next += 1) {
+        const other = particles[next];
+        const distance = Math.hypot(particle.x - other.x, particle.y - other.y);
+        if (distance < 118) {
+          context.beginPath();
+          context.moveTo(particle.x, particle.y);
+          context.lineTo(other.x, other.y);
+          context.strokeStyle = `rgba(121,190,230,${0.17 * (1 - distance / 118)})`;
+          context.stroke();
+        }
+      }
+
+      context.globalAlpha = particle.shape === 'dot' ? 0.58 : 0.82;
+      drawParticle(particle);
+      context.globalAlpha = 1;
+    });
+    if (!motionReduced) frame = window.requestAnimationFrame(renderCanvas);
+  }
+
+  hero.addEventListener('pointermove', (event) => {
+    const bounds = hero.getBoundingClientRect();
+    pointer = { x: event.clientX - bounds.left, y: event.clientY - bounds.top, active: true };
+  });
+  hero.addEventListener('pointerleave', () => { pointer.active = false; });
+  window.addEventListener('resize', () => {
+    window.cancelAnimationFrame(frame);
+    resizeCanvas();
+    renderCanvas();
+  });
+
+  resizeCanvas();
+  renderCanvas();
+}
+
 track?.addEventListener('mouseenter', () => window.clearInterval(serviceTimer));
 track?.addEventListener('mouseleave', startServiceTimer);
 track?.addEventListener('focusin', () => window.clearInterval(serviceTimer));
