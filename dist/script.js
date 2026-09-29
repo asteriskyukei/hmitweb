@@ -4,12 +4,30 @@ const nav = document.querySelector('#primary-nav');
 menuButton?.addEventListener('click', () => {
   const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
   menuButton.setAttribute('aria-expanded', String(!isOpen));
+  menuButton.setAttribute('aria-label', isOpen ? '메뉴 열기' : '메뉴 닫기');
   nav.classList.toggle('is-open', !isOpen);
+});
+
+document.addEventListener('click', (event) => {
+  if (!nav?.classList.contains('is-open')) return;
+  if (nav.contains(event.target) || menuButton?.contains(event.target)) return;
+  nav.classList.remove('is-open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  menuButton?.setAttribute('aria-label', '메뉴 열기');
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape' || !nav?.classList.contains('is-open')) return;
+  nav.classList.remove('is-open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  menuButton?.setAttribute('aria-label', '메뉴 열기');
+  menuButton?.focus();
 });
 
 nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
   nav.classList.remove('is-open');
   menuButton?.setAttribute('aria-expanded', 'false');
+  menuButton?.setAttribute('aria-label', '메뉴 열기');
 }));
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

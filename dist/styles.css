@@ -13,3 +13,13 @@
 #hero-title{font-size:clamp(3rem,4.15vw,4.25rem);line-height:1.12;white-space:nowrap;word-break:keep-all}
 #hero-title em{display:inline-block;white-space:nowrap}
 @media(max-width:640px){#hero-title{font-size:clamp(2.05rem,9vw,2.8rem);letter-spacing:-.06em}}
+
+/* Mobile navigation close control */
+@media(max-width:980px){
+  .menu-button{position:relative;z-index:24;width:44px;height:44px;padding:10px;cursor:pointer}
+  .menu-button span{transition:transform .25s ease,opacity .2s ease;margin:5px auto}
+  .menu-button[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-button[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-button[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .site-header nav{z-index:22;box-shadow:0 18px 35px rgba(0,0,0,.24)}
+}
