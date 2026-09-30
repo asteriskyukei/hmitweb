@@ -32,11 +32,11 @@ h2{font-size:clamp(2.25rem,2.8vw,3rem);line-height:1.18;white-space:nowrap;word-
 }
 
 /* Client reference logos */
-.reference-grid>.reference-item{min-height:126px;padding:1rem;background:#fff;align-content:center;gap:.7rem}
-.reference-grid>.has-logo img{width:auto;height:auto;max-width:84%;max-height:54px;object-fit:contain;filter:saturate(.9);transition:filter .2s ease,transform .2s ease}
+.reference-grid>.reference-item{min-height:144px;padding:1rem;background:#fff;align-content:center;gap:.75rem}
+.reference-grid>.has-logo img{width:min(92%,180px);height:66px;max-width:none;max-height:none;object-fit:contain;image-rendering:auto;filter:saturate(.95);transition:filter .2s ease,transform .2s ease}
 .reference-grid>.has-logo:hover img{filter:saturate(1);transform:scale(1.04)}
 .reference-grid>.reference-more{background:var(--blue);color:#fff;font:700 .76rem Manrope;letter-spacing:.1em}
-.reference-grid .reference-name{display:block;min-height:0;padding:0;border:0;font-size:.78rem;font-weight:600;line-height:1.35;color:#526078}
+.reference-grid .reference-name{display:block;min-height:0;padding:0;border:0;background:transparent!important;font-size:.78rem;font-weight:600;line-height:1.35;color:#111!important}
 .reference-grid .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;min-height:0!important}
 .reference-grid .reference-fallback{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal;border:0;min-height:0;font-weight:600;color:#4d586d}
-@media(max-width:640px){.reference-grid>.reference-item{min-height:112px}.reference-grid>.has-logo img{max-width:86%;max-height:46px}.reference-grid .reference-name{font-size:.74rem}}
+@media(max-width:640px){.reference-grid>.reference-item{min-height:126px}.reference-grid>.has-logo img{width:min(90%,150px);height:56px;max-width:none;max-height:none}.reference-grid .reference-name{font-size:.74rem}}
