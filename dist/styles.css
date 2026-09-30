@@ -23,3 +23,10 @@
   .menu-button[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .site-header nav{z-index:22;box-shadow:0 18px 35px rgba(0,0,0,.24)}
 }
+
+/* Preserve only the author-defined line breaks in section headings. */
+h2{font-size:clamp(2.25rem,2.8vw,3rem);line-height:1.18;white-space:nowrap;word-break:keep-all;letter-spacing:-.055em}
+.solutions h2,.partners h2,.company h2,.contact h2{font-size:clamp(2.2rem,2.6vw,2.8rem)}
+@media(max-width:640px){
+  h2,.solutions h2,.partners h2,.company h2,.contact h2{font-size:clamp(1.45rem,7.2vw,2.15rem);letter-spacing:-.065em}
+}
