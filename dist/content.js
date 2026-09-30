@@ -23,7 +23,7 @@ function renderReference(item, logoMap) {
   const name = escapeHmText(item);
   const logo = logoMap[item];
   if (!logo) return `<span class="reference-item reference-text">${name}</span>`;
-  return `<span class="reference-item has-logo"><img src="./assets/reference-logos/${escapeHmText(logo)}" alt="${name} 로고" loading="lazy" onerror="this.remove()"><span class="reference-name">${name}</span></span>`;
+  return `<span class="reference-item has-logo"><img src="./assets/reference-logos/${escapeHmText(logo)}" alt="${name} 로고" loading="lazy"></span>`;
 }
 
 function renderHmContent(content = getHmContent(), logoMap = {}) {
