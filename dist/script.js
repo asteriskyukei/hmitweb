@@ -92,6 +92,21 @@ track?.addEventListener('scroll', () => {
 
 const hero = document.querySelector('.hero');
 
+const fieldItems = [
+  { label: '현장 구축 및 운영 지원', alt: '현장에서 IT 장비를 구축하고 점검하는 엔지니어' },
+  { label: 'IT 인프라 점검', alt: '관리 화면을 확인하며 IT 인프라를 점검하는 엔지니어' },
+  { label: 'NAC 장비 설치', alt: '네트워크 랙에 설치된 NAC 및 네트워크 장비' }
+];
+
+document.querySelectorAll('.field-gallery figure').forEach((figure, index) => {
+  const content = fieldItems[index];
+  if (!content) return;
+  const image = figure.querySelector('img');
+  const caption = figure.querySelector('figcaption');
+  if (image) image.alt = content.alt;
+  if (caption) caption.textContent = content.label;
+});
+
 const contactCopy = document.querySelector('.contact-copy');
 if (contactCopy) {
   const supportEmail = document.createElement('a');
