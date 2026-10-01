@@ -96,8 +96,8 @@ const contactCopy = document.querySelector('.contact-copy');
 if (contactCopy) {
   const supportEmail = document.createElement('a');
   supportEmail.className = 'support-email';
-  supportEmail.href = 'mailto:tech@hongminit.com';
-  supportEmail.innerHTML = '<span>고객지원 이메일</span><strong>tech@hongminit.com</strong><b>↗</b>';
+  supportEmail.href = 'mailto:help@hongminit.com';
+  supportEmail.innerHTML = '<span>고객지원 이메일</span><strong>help@hongminit.com</strong><b>↗</b>';
   contactCopy.append(supportEmail);
 }
 
