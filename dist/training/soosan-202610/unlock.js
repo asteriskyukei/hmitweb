@@ -8,6 +8,25 @@ const frame = document.getElementById('document');
 const toggle = document.getElementById('toggle');
 const bytes = value => Uint8Array.from(atob(value), char => char.charCodeAt(0));
 
+// srcdoc inherits the parent's base URL, so native fragment links can reload
+// the login page inside the frame. Keep section navigation in the document.
+function trainingNavigation() {
+  document.addEventListener('click', event => {
+    const link = event.target.closest?.('a[href^="#"]');
+    if (!link) return;
+    event.preventDefault();
+    const target = document.getElementById(decodeURIComponent(link.getAttribute('href').slice(1)));
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  // Opaque sandbox documents cannot update the parent-based history URL.
+  const replaceState = history.replaceState.bind(history);
+  history.replaceState = (...args) => {
+    try { replaceState(...args); } catch (error) {
+      if (error.name !== 'SecurityError') throw error;
+    }
+  };
+}
+
 toggle.addEventListener('click', () => {
   const show = password.type === 'password';
   password.type = show ? 'text' : 'password';
@@ -40,7 +59,9 @@ document.getElementById('login').addEventListener('submit', async event => {
     }
     // srcdoc keeps the original document and scripts without publishing plaintext.
     // An opaque sandbox origin isolates the training document from the parent site.
-    frame.srcdoc = new TextDecoder('utf-8', {fatal:true}).decode(plain);
+    const html = new TextDecoder('utf-8', {fatal:true}).decode(plain);
+    frame.srcdoc = html.replace(/<head\b[^>]*>/i, head =>
+      `${head}<script>(${trainingNavigation.toString()})();<\/script>`);
     password.value = '';
     password.type = 'password';
     toggle.textContent = '표시';
