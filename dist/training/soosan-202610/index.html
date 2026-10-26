@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>수산 교육 자료 | HMIT</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#182943;font:15px/1.7 'Malgun Gothic',system-ui,sans-serif}button,input{font:inherit}[hidden]{display:none!important}.gate{min-height:100dvh;display:grid;place-items:center;padding:24px}.card{width:100%;max-width:460px;padding:40px;background:white;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 16px 60px #14274d0c}.brand{color:#315be8;font-weight:800;letter-spacing:2px;font-size:12px}h1{font-size:27px;line-height:1.4;margin:18px 0 12px}.intro{color:#62728a;margin-bottom:28px}label{display:block;font-weight:700;margin-bottom:8px}.input-row{display:flex;border:1px solid #aab8cc;border-radius:10px;overflow:hidden}.input-row:focus-within{outline:2px solid #315be8;outline-offset:2px}input{width:100%;min-width:0;padding:12px;border:0;outline:0}.toggle{border:0;background:white;color:#41546c;padding:0 14px;white-space:nowrap;cursor:pointer}.submit{width:100%;margin-top:16px;padding:13px;border:0;border-radius:10px;background:#14274d;color:white;font-weight:700;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.status{min-height:26px;margin:12px 0;color:#b42318;font-size:13px}.home{color:#62728a;font-size:13px}.viewer-bar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#14274d;color:white;font-size:13px}.lock{background:white;color:#14274d;border:0;border-radius:6px;padding:6px 14px;cursor:pointer}iframe{display:block;width:100%;height:calc(100dvh - 52px);border:0;background:white}@media(max-width:480px){.card{padding:28px 24px}h1{font-size:24px}}
+  </style>
+</head>
+<body>
+  <main id="gate" class="gate">
+    <section class="card" aria-labelledby="title">
+      <div class="brand">HMIT · TRAINING NOTES</div>
+      <h1 id="title">수산 보안 솔루션<br>기술 교육 자료</h1>
+      <p class="intro">2026년 10월 교육 정리<br>WAF · SSL / SWG · DLP</p>
+      <form id="login">
+        <label for="password">열람 비밀번호</label>
+        <div class="input-row"><input id="password" type="password" autocomplete="current-password" required aria-describedby="status"><button class="toggle" id="toggle" type="button" aria-pressed="false">표시</button></div>
+        <button class="submit" id="submit" type="submit">교육 자료 열기</button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </form>
+      <a class="home" href="../../">HMIT 홈페이지로 돌아가기</a>
+    </section>
+  </main>
+  <section id="viewer" hidden aria-label="교육 자료">
+    <div class="viewer-bar"><span>HMIT · 수산 교육 자료</span><button id="lock" class="lock" type="button">잠그기</button></div>
+    <iframe id="document" title="수산 보안 솔루션 기술 교육 정리" sandbox="allow-scripts allow-modals"></iframe>
+  </section>
+  <script src="./unlock.js"></script>
+</body>
+</html>
